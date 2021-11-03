@@ -1,0 +1,23 @@
+MODULE Swap_Values_Module;
+
+VAR
+    x: INTEGER;
+    y: INTEGER;
+
+
+PROCEDURE swpvls(VAR x: INTEGER, VAR y: INTEGER);
+BEGIN
+    tmp: INTEGER;
+
+    tmp := x
+    x := y
+    y := tmp
+END
+
+BEGIN
+     readInt(x);
+     readInt(y);
+     write(swpvls(x,y))
+END
+
+END Swap_Values_Module
