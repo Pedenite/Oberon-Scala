@@ -1486,6 +1486,33 @@ class ParserTestSuite extends AnyFunSuite {
     assert(stmt.stmts(2) == WriteStmt(FunctionCallExpression("swpvls", List(VarExpression("x"), VarExpression("y")))))
   }
 	
+test("Testing the oberon procedure07 code. Testing the oberon procedure07 code. This module tests VAR declaration with absolute operation") {
+    val module = ScalaParser.parseResource("procedures/procedure07.oberon")
+
+    assert(module.name == "Absolute")
+
+    assert(module.procedures.size == 1)
+    assert(module.stmt.isDefined)
+
+    val procedure = module.procedures.head
+
+    assert(procedure.name == "abs")
+    assert(procedure.args.size == 3)
+    assert(procedure.returnType == None)
+
+    procedure.stmt match {
+      case AssignmentStmt("res", SubExpression(VarExpression("a"), MultExpression(DivExpression(VarExpression("a"), VarExpression("b")), VarExpression("b")))) => succeed
+      case _ => fail("expecting a res = i * a stmt")
+    }
+
+    assert(module.stmt.get.isInstanceOf[SequenceStmt])
+
+    val stmt = module.stmt.get.asInstanceOf[SequenceStmt]
+
+    assert(stmt.stmts.head == ReadIntStmt("a"))
+    assert(stmt.stmts(1) == ReadIntStmt("b"))
+  }
+	
   test("Testing the oberon ArrayAssignmentStmt01 code. This module has a simple array assignment") {
     val module = ScalaParser.parseResource("stmts/ArrayAssignmentStmt01.oberon")
 
