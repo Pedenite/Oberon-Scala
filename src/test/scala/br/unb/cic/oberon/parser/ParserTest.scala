@@ -2141,4 +2141,23 @@ class ParserTestSuite extends AnyFunSuite {
     val constant2 = ScalaParser.parserREPL(const2)
     assert(constant2 == REPLConstant(Constant("y",AddExpression(VarExpression("x"),IntValue(1)))))
   }
+
+  test("Testing the oberon procedure08 code. This module resembles the code of multiples to test parameters.") {
+    val module = ScalaParser.parseResource("procedures/procedure08.oberon")
+
+    assert(module.name == "Value_Reference_Variable")
+
+    assert(module.procedures.size == 1)
+
+    val procedure = module.procedures.head
+
+    assert(procedure.name == "setValue")
+    assert(procedure.args.size == 1)
+      assert(procedure.returnType == None)
+
+    procedure.stmt match {
+      case SequenceStmt(_) => succeed
+      case _ => fail("expecting a sequence of stmts")
+    }
+  }
 }

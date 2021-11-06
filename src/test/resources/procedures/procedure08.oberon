@@ -1,0 +1,23 @@
+MODULE Value_Reference_Variable;
+(* IMPORT Out; *)
+
+VAR
+  reference : INTEGER;
+
+PROCEDURE setValue(value : INTEGER);
+  BEGIN
+    (* value := 10; *)
+    reference := value;
+    Out.Int(value, 0); Out.Ln;
+    Out.Int(reference, 0); Out.Ln;
+
+    reference := 20;
+    write(reference, value);
+    (* Out.Int(value, 0); Out.Ln;
+    Out.Int(reference, 0); Out.; *)
+  END setValue;
+
+BEGIN
+  setValue(10);
+END
+END Value_Reference_Variable.
