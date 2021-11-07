@@ -1,23 +1,21 @@
-MODULE Value_Reference_Variable;
-(* IMPORT Out; *)
+MODULE Value_Ref;
 
 VAR
-  reference : INTEGER;
+  a, b : INTEGER;
 
-PROCEDURE setValue(value : INTEGER);
-  BEGIN
-    (* value := 10; *)
-    reference := value;
-    Out.Int(value, 0); Out.Ln;
-    Out.Int(reference, 0); Out.Ln;
-
-    reference := 20;
-    write(reference, value);
-    (* Out.Int(value, 0); Out.Ln;
-    Out.Int(reference, 0); Out.; *)
-  END setValue;
-
+PROCEDURE change(VAR x: INTEGER, VAR y: INTEGER);
 BEGIN
-  setValue(10);
+  x := 10;
+  y := x;
+  y := 20;
+END change
+ 
+BEGIN
+  readInt(a);
+  readInt(b);
+
+  change(a, b);
+  write(a)
 END
-END Value_Reference_Variable.
+
+END Multiply_Ref.

@@ -1457,6 +1457,28 @@ class ParserTestSuite extends AnyFunSuite {
     assert(stmt.stmts(1) == ReadIntStmt("b"))
   }
 
+   test("Testing the oberon procedure08 code. This module atributes values passed by reference") {
+    val module = ScalaParser.parseResource("procedures/procedure08.oberon")
+
+    assert(module.name == "Value_Ref")
+
+    assert(module.procedures.size == 1)
+    assert(module.stmt.isDefined)
+
+    val procedure = module.procedures.head
+
+    assert(procedure.name == "change")
+    assert(procedure.args.size == 2)
+    assert(procedure.returnType == None)
+
+    assert(module.stmt.get.isInstanceOf[SequenceStmt])
+
+    val stmt = module.stmt.get.asInstanceOf[SequenceStmt]
+
+    assert(stmt.stmts.head == ReadIntStmt("a"))
+    assert(stmt.stmts(1) == ReadIntStmt("b"))
+  }
+
 
   test("Testing the oberon ArrayAssignmentStmt01 code. This module has a simple array assignment") {
     val module = ScalaParser.parseResource("stmts/ArrayAssignmentStmt01.oberon")
@@ -2142,22 +2164,4 @@ class ParserTestSuite extends AnyFunSuite {
     assert(constant2 == REPLConstant(Constant("y",AddExpression(VarExpression("x"),IntValue(1)))))
   }
 
-  test("Testing the oberon procedure08 code. This module resembles the code of multiples to test parameters.") {
-    val module = ScalaParser.parseResource("procedures/procedure08.oberon")
-
-    assert(module.name == "Value_Reference_Variable")
-
-    assert(module.procedures.size == 1)
-
-    val procedure = module.procedures.head
-
-    assert(procedure.name == "setValue")
-    assert(procedure.args.size == 1)
-      assert(procedure.returnType == None)
-
-    procedure.stmt match {
-      case SequenceStmt(_) => succeed
-      case _ => fail("expecting a sequence of stmts")
-    }
-  }
 }
