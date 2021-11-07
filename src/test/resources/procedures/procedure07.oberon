@@ -6,7 +6,7 @@ VAR
 
 PROCEDURE abs(a: INTEGER,  b: INTEGER, VAR res : INTEGER);
 BEGIN
-    RETURN res := a - ((a / b)*b);
+    res := a - ((a / b)*b)
 END abs
 
 BEGIN
