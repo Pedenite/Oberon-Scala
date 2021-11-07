@@ -4,7 +4,7 @@ VAR
   a, b : INTEGER;
   c : INTEGER;
 
-PROCEDURE mult(i: INTEGER, a: INTEGER, VAR res: INTEGER);
+PROCEDURE mult(VAR i: INTEGER, VAR a: INTEGER, VAR res: INTEGER);
 BEGIN
   res := i * a
 END mult

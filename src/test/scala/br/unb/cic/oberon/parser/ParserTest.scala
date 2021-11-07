@@ -1503,6 +1503,28 @@ class ParserTestSuite extends AnyFunSuite {
     assert(stmt.stmts(1) == ReadIntStmt("b"))
   }
 
+  test("Testing the oberon procedure08 code. This module atributes values passed by reference") {
+    val module = ScalaParser.parseResource("procedures/procedure08.oberon")
+
+    assert(module.name == "Value_Ref")
+
+    assert(module.procedures.size == 1)
+    assert(module.stmt.isDefined)
+
+    val procedure = module.procedures.head
+
+    assert(procedure.name == "change")
+    assert(procedure.args.size == 2)
+    assert(procedure.returnType == None)
+
+    assert(module.stmt.get.isInstanceOf[SequenceStmt])
+
+    val stmt = module.stmt.get.asInstanceOf[SequenceStmt]
+
+    assert(stmt.stmts.head == ReadIntStmt("a"))
+    assert(stmt.stmts(1) == ReadIntStmt("b"))
+  }
+
   test("Testing the oberon procedure09 code. This module computes a to the power of b and assign the result to the first parameter that is passed by reference") {
     val module = ScalaParser.parseResource("procedures/procedure09.oberon")
 
@@ -2208,4 +2230,5 @@ class ParserTestSuite extends AnyFunSuite {
     val constant2 = ScalaParser.parserREPL(const2)
     assert(constant2 == REPLConstant(Constant("y",AddExpression(VarExpression("x"),IntValue(1)))))
   }
+
 }

@@ -1,0 +1,21 @@
+MODULE Value_Ref;
+
+VAR
+  a, b : INTEGER;
+
+PROCEDURE change(VAR x: INTEGER, VAR y: INTEGER);
+BEGIN
+  x := 10;
+  y := x;
+  y := 20
+END change
+ 
+BEGIN
+  readInt(a);
+  readInt(b);
+
+  change(a, b);
+  write(a)
+END
+
+END Value_Ref.
