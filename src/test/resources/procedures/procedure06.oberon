@@ -6,18 +6,20 @@ VAR
 
 
 PROCEDURE swpvls(VAR x: INTEGER, VAR y: INTEGER);
+    VAR tmp: INTEGER;
 BEGIN
-    tmp: INTEGER;
-
-    tmp := x
-    x := y
+    tmp := x;
+    x := y;
     y := tmp
-END
+END swpvls
+
 
 BEGIN
      readInt(x);
      readInt(y);
-     write(swpvls(x,y))
+     swpvls(x,y);
+     write(x);
+     write(y)
 END
 
-END Swap_Values_Module
+END Swap_Values_Module.
