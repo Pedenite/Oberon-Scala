@@ -1457,7 +1457,53 @@ class ParserTestSuite extends AnyFunSuite {
     assert(stmt.stmts(1) == ReadIntStmt("b"))
   }
 
-   test("Testing the oberon procedure08 code. This module atributes values passed by reference") {
+  test("Testing the oberon procedure06 code. This module has a procedure") {
+    val module = ScalaParser.parseResource("procedures/procedure06.oberon")
+
+    assert(module.name == "Swap_Values_Module")
+
+    assert(module.procedures.size == 1)
+    assert(module.stmt.isDefined)
+
+    val procedure = module.procedures.head
+
+    assert(procedure.name == "swpvls")
+    assert(procedure.args.size == 2)
+    assert(procedure.returnType == None)
+
+    assert(module.stmt.get.isInstanceOf[SequenceStmt])
+
+    val stmt = module.stmt.get.asInstanceOf[SequenceStmt]
+
+
+    assert(stmt.stmts.head == ReadIntStmt("x"))
+    assert(stmt.stmts(1) == ReadIntStmt("y"))
+    assert(stmt.stmts(2) == ProcedureCallStmt("swpvls",List(VarExpression("x"), VarExpression("y"))))
+  }
+	
+  test("Testing the oberon procedure07 code. This module tests VAR declaration with absolute operation") {
+    val module = ScalaParser.parseResource("procedures/procedure07.oberon")
+
+    assert(module.name == "Absolute")
+
+    assert(module.procedures.size == 1)
+    assert(module.stmt.isDefined)
+
+    val procedure = module.procedures.head
+
+    assert(procedure.name == "abs")
+    assert(procedure.args.size == 3)
+    assert(procedure.returnType == None)
+
+    assert(module.stmt.get.isInstanceOf[SequenceStmt])
+
+    val stmt = module.stmt.get.asInstanceOf[SequenceStmt]
+
+    assert(stmt.stmts.head == ReadIntStmt("a"))
+    assert(stmt.stmts(1) == ReadIntStmt("b"))
+  }
+
+  test("Testing the oberon procedure08 code. This module atributes values passed by reference") {
     val module = ScalaParser.parseResource("procedures/procedure08.oberon")
 
     assert(module.name == "Value_Ref")
@@ -1479,7 +1525,28 @@ class ParserTestSuite extends AnyFunSuite {
     assert(stmt.stmts(1) == ReadIntStmt("b"))
   }
 
+  test("Testing the oberon procedure09 code. This module computes a to the power of b and assign the result to the first parameter that is passed by reference") {
+    val module = ScalaParser.parseResource("procedures/procedure09.oberon")
 
+    assert(module.name == "Power")
+
+    assert(module.procedures.size == 1)
+    assert(module.stmt.isDefined)
+
+    val procedure = module.procedures.head
+
+    assert(procedure.name == "pow")
+    assert(procedure.args.size == 3)
+    assert(procedure.returnType == None)
+
+    assert(module.stmt.get.isInstanceOf[SequenceStmt])
+
+    val stmt = module.stmt.get.asInstanceOf[SequenceStmt]
+
+    assert(stmt.stmts.head == ReadRealStmt("a"))
+    assert(stmt.stmts(1) == ReadIntStmt("b"))
+  }
+	
   test("Testing the oberon ArrayAssignmentStmt01 code. This module has a simple array assignment") {
     val module = ScalaParser.parseResource("stmts/ArrayAssignmentStmt01.oberon")
 

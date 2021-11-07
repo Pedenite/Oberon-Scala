@@ -1,0 +1,28 @@
+MODULE Power;
+
+VAR
+    a, res : REAL;
+    b : INTEGER;
+
+PROCEDURE pow(VAR z: REAL, x: REAL, i: INTEGER);
+BEGIN
+    z := 1.0;
+    WHILE i > 0 DO
+        IF ODD(i) THEN
+            z := z*x
+        END;
+
+        x := x*x;
+        i := i/2
+    END
+END pow
+
+BEGIN
+    readReal(a);
+    readInt(b);
+
+    pow(res, a, b);
+    write(res)
+END
+
+END Power.
