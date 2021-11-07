@@ -1471,11 +1471,6 @@ class ParserTestSuite extends AnyFunSuite {
     assert(procedure.args.size == 2)
     assert(procedure.returnType == None)
 
-    procedure.stmt match {
-      case WriteStmt(FunctionCallExpression("swpvls", List(VarExpression("x"), VarExpression("y")))) => succeed
-      case _ => fail("expecting a write stmt")
-    }
-
     assert(module.stmt.get.isInstanceOf[SequenceStmt])
 
     val stmt = module.stmt.get.asInstanceOf[SequenceStmt]
@@ -1483,7 +1478,7 @@ class ParserTestSuite extends AnyFunSuite {
 
     assert(stmt.stmts.head == ReadIntStmt("x"))
     assert(stmt.stmts(1) == ReadIntStmt("y"))
-    assert(stmt.stmts(2) == WriteStmt(FunctionCallExpression("swpvls", List(VarExpression("x"), VarExpression("y")))))
+    assert(stmt.stmts(2) == ProcedureCallStmt("swpvls",List(VarExpression("x"), VarExpression("y"))))
   }
 	
 test("Testing the oberon procedure07 code. Testing the oberon procedure07 code. This module tests VAR declaration with absolute operation") {
