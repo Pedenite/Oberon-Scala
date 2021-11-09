@@ -1,0 +1,20 @@
+MODULE Absolute;
+
+VAR
+    a, b : INTEGER;
+    c : INTEGER;
+
+PROCEDURE abs(a: INTEGER,  b: INTEGER, VAR res : INTEGER);
+BEGIN
+    res := a - ((a / b)*b)
+END abs
+
+BEGIN
+    readInt(a);
+    readInt(b);
+
+    abs(a, b, c);
+    write(c)
+END
+
+END Absolute.
